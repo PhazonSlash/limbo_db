@@ -5,7 +5,7 @@
  <body>
   <div>
    <p>
-    <a href="limbo/lost.php">Lost Something</a> <a href="limbo/found.php">Found Something</a>
+    <a href="lost.php">Lost Something</a> <a href="found.php">Found Something</a>
    </p>
   </div>
 	<h1>Found Something?</h1>
