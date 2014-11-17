@@ -4,7 +4,9 @@
  <title>Limbo Database</title>
  <body>
   <div>
-   <a href="linkypresidents.php">Lost Something</a><a href="presidents_login.php">Found Something</a>
+   <p>
+    <a href="limbo/lost.php">Lost Something</a> <a href="limbo/found.php">Found Something</a>
+   </p>
   </div>
 	<h1>Welcome to Limbo!</h1>
 	<p>If you lost or found something, you're in luck this is the place to report it.</p>
@@ -19,10 +21,10 @@
 	</form>
 <?php
 # Connect to MySQL server and the database
-require( 'includes/connect_limbo_db.php' ) ;
+require( 'limbo/limboincludes/connect_limbo_db.php' ) ;
 
 # Includes these helper functions
-require( 'includes/limbo_helpers.php' ) ;
+require( 'limbo/limboincludes/limbo_helpers.php' ) ;
 
 
 # Show the records

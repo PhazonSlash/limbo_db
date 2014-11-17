@@ -5,7 +5,7 @@ $debug = true;
 function show_limbo_records($dbc) {
 
 # Connect to MySQL server and the database
-require( 'includes/connect_limbo_db.php' ) ;
+require( 'limboincludes/connect_limbo_db.php' ) ;
 
 # Create a query to get the name and price sorted by price
 $query = 'SELECT DISTINCT id, create_date, name FROM locations ORDER BY id ASC' ;

@@ -4,7 +4,9 @@
  <title>New Lost Item</title>
  <body>
   <div>
-   <a href="linkypresidents.php">Lost Something</a><a href="presidents_login.php">Found Something</a>
+   <p>
+    <a href="limbo/lost.php">Lost Something</a> <a href="limbo/found.php">Found Something</a>
+   </p>
   </div>
 	<h1>Lost Something?</h1>
 	<p>If you lost something, you can post it here.</p>
