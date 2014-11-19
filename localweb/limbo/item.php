@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
-<script>
+ <script>
 	function goBack() {
 		window.history.back()
 	}
 </script>
- <title>Lost</title>
+
+ <title>Item</title>
  <body>
   <div>
    <p>
     <a href="/limbo/lost.php">Lost Something</a> <a href="/limbo/found.php">Found Something</a> <a href="/limbo/quicklinks.php">Quick Links</a>
    </p>
-   </p>
   </div>
-	<h1>Lost Something?</h1>
-	<p>If you lost something, you can search for it here.</p>
+  <div>
+	<h1>Item</h1>
+  </div>
 <?php
 # Connect to MySQL server and the database
 require( 'limboincludes/connect_limbo_db.php' ) ;
@@ -24,26 +25,20 @@ require( 'limboincludes/limbo_helpers.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	
+	$lname = $_POST['name'] ;
+	
 	$item = $_POST['item'] ;
 	
+	$location = $_POST['location'] ;
     }
-	else if($_SERVER[ 'REQUEST_METHOD' ] == 'GET') {
-		if(isset($_GET['id']))
-			show_record($dbc, $_GET['id']) ;
-		}
 
 # Show the records
-#show_limbo_records($dbc);
+show_item($dbc);
 
 # Close the connection
 mysqli_close( $dbc ) ;
 ?>
 <!-- Get inputs from the user. -->
-<form action="found.php" method="POST">
-	<p>Type of Item Lost: <input type="text" name="item" value="<?php if(isset($_POST['item'])) echo $_POST['item']; ?>">
-	</p>
-	<p><input type="submit"></p>
-</form>
+<button onclick="goBack()">Go Back</button>
  </body>
- <button onclick="goBack()">Go Back</button>
 </html>

@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
-
+<script>
+	function goBack() {
+		window.history.back()
+	}
+</script>
  <title>Found</title>
  <body>
   <div>
    <p>
-    <a href="lost.php">Lost Something</a> <a href="found.php">Found Something</a>
+    <a href="/limbo/lost.php">Lost Something</a> <a href="/limbo/found.php">Found Something</a> <a href="/limbo/quicklinks.php">Quick Links</a>
+   </p>
    </p>
   </div>
 	<h1>Found Something?</h1>
@@ -52,5 +57,6 @@ mysqli_close( $dbc ) ;
 	</p>
 	<p><input type="submit"></p>
 </form>
+<button onclick="goBack()">Go Back</button>
  </body>
 </html>

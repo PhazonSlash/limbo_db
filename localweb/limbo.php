@@ -5,7 +5,7 @@
  <body>
   <div>
    <p>
-    <a href="limbo/lost.php">Lost Something</a> <a href="limbo/found.php">Found Something</a>
+    <a href="limbo/lost.php">Lost Something</a> <a href="limbo/found.php">Found Something</a> <a href="limbo/quicklinks.php">Quick Links</a>
    </p>
   </div>
 	<h1>Welcome to Limbo!</h1>
@@ -28,7 +28,7 @@ require( 'limbo/limboincludes/limbo_helpers.php' ) ;
 
 
 # Show the records
-show_limbo_records($dbc);
+show_item_by_location($dbc);
 
 # Close the connection
 mysqli_close( $dbc ) ;
