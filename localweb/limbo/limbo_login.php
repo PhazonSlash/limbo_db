@@ -9,10 +9,10 @@ RC  07-Nov-13   Created.
 <html>
 <?php
 # Connect to MySQL server and the database
-require( 'includes/connect_db.php' ) ;
+require( 'limboincludes/connect_limbo_db.php' ) ;
 
 # Connect to MySQL server and the database
-require( 'includes/presidents_login_tools.php' ) ;
+require( 'limboincludes/limbo_login_tools.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
@@ -31,7 +31,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 ?>
 <!-- Get inputs from the user. -->
 <h1>Administrator Login</h1>
-<form action="presidents_login.php" method="POST">
+<form action="limbo_login.php" method="POST">
 <table>
 <tr>
 <td>Name:</td><td><input type="text" name="name"></td>
