@@ -7,6 +7,7 @@ RC  07-Nov-13   Created.
 -->
 <!DOCTYPE html>
 <html>
+<title>Login</title>
 <?php
 # Connect to MySQL server and the database
 require( 'limboincludes/connect_limbo_db.php' ) ;
@@ -19,14 +20,15 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	$name = $_POST['name'] ;
 	$password = $_POST['password'] ;
 
-    $pid = validate($name) ;
-	$pid = validate($password) ;
+    $pid = validate($name, $password) ;
 
-    if($pid == -1)
-      echo '<P style=color:red>Login failed please try again.</P>' ;
 
-    else
-      load('linkypresidents.php', $pid);
+    if($pid == -1){
+      echo '<p style=color:red>Login failed please try again.</p>';
+	}
+    else{
+      load('admin_change.php', $pid);
+	 }
 }
 ?>
 <!-- Get inputs from the user. -->

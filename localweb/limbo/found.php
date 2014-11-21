@@ -37,7 +37,7 @@ mysqli_close( $dbc ) ;
 <form action="found.php" method="POST">
 	<p>Type of Item Found: <input type="text" name="item" value="<?php if(isset($_POST['item'])) echo $_POST['item']; ?>">
 	</p>
-	<p><input type="submit" formaction="found-1.php"></p>';
+	<p><input type="submit" formaction="found-1.php"></p>
 </form>
  </body>
  <button onclick="goBack()">Go Back</button>

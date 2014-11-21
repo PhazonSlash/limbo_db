@@ -319,4 +319,11 @@ else
 # Close the connection
 mysqli_close( $dbc ) ;
 }
+
+function show_query($query) {
+  global $debug;
+
+  if($debug)
+    echo "<p>Query = $query</p>" ;
+}
 ?>

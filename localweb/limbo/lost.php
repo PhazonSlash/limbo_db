@@ -37,7 +37,7 @@ mysqli_close( $dbc ) ;
 <form action="lost.php" method="POST">
 	<p>Type of Item Lost: <input type="text" name="item" value="<?php if(isset($_POST['item'])) echo $_POST['item']; ?>">
 	</p>
-	<p><input type="submit" formaction="lost-1.php"></p>';
+	<p><input type="submit" formaction="lost-1.php"></p>
 </form>
  </body>
  <button onclick="goBack()">Go Back</button>

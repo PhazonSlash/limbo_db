@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
- <title>Edit Status</title>
+ <title>Delete Entries</title>
  <body>
   <div>
    <p>
@@ -9,8 +9,8 @@
 	<a href="/limbo/admin_change.php">Change Status</a> <a href="/limbo/admin_delete.php">Remove Entries</a>
    </p>
   </div>
-	<h1>Change Status</h1>
-	<p>Here you can change the status of an item in the database.</p>
+	<h1>Delete Entries</h1>
+	<p>Here you can remove entries from the database.</p>
 	
 <?php
 # Connect to MySQL server and the database
