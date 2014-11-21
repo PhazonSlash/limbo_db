@@ -14,7 +14,7 @@
    </p>
   </div>
 	<h1>Lost Something?</h1>
-	<p>If you lost something, you can search for it here.</p>
+	<p>If you lost something, you can see if someone found it.</p>
 <?php
 # Connect to MySQL server and the database
 require( 'limboincludes/connect_limbo_db.php' ) ;
@@ -27,22 +27,17 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	$item = $_POST['item'] ;
 	
     }
-	else if($_SERVER[ 'REQUEST_METHOD' ] == 'GET') {
-		if(isset($_GET['id']))
-			show_record($dbc, $_GET['id']) ;
-		}
 
 # Show the records
-#show_limbo_records($dbc);
 
 # Close the connection
 mysqli_close( $dbc ) ;
 ?>
 <!-- Get inputs from the user. -->
-<form action="found.php" method="POST">
+<form action="lost.php" method="POST">
 	<p>Type of Item Lost: <input type="text" name="item" value="<?php if(isset($_POST['item'])) echo $_POST['item']; ?>">
 	</p>
-	<p><input type="submit"></p>
+	<p><input type="submit" formaction="lost-1.php"></p>';
 </form>
  </body>
  <button onclick="goBack()">Go Back</button>

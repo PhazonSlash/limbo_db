@@ -13,8 +13,8 @@
    </p>
    </p>
   </div>
-	<h1>Report Lost</h1>
-	<p>You can report a new lost item here.</p>
+	<h1>Report Found</h1>
+	<p>You can report a new found item here.</p>
 <?php
 # Connect to MySQL server and the database
 require( 'limboincludes/connect_limbo_db.php' ) ;
@@ -31,17 +31,18 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	
 	$room = $_POST['room'] ;
 
-    $owner = $_POST['owner'] ;
+    $owner = '' ;
 	
-	$finder = '';
+	$finder = $_POST['finder'];
 	
-	$status = 'lost';
+	$status = 'found';
 	
 
-    if(!empty($description) && !empty($owner)) {
+    if(!empty($description) && !empty($finder)) {
 		
 		$result = insert_record($dbc, $location_id, $description, $room, $owner, $finder, $status ) ;
 		header("Location: /limbo/thanks.php");
+		
     }
 	else{
 		echo '<p style="color:red">Please input first name, last name and number!.</p>';
@@ -51,16 +52,16 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 # Close the connection
 mysqli_close( $dbc ) ;
 ?>
-<form action="newlost.php" method="POST">
+<form action="newfound.php" method="POST">
 <table>
 <tr>
-<td>Your Name:</td><td><input type="text" name="owner"></td>
+<td>Your Name:</td><td><input type="text" name="finder"></td>
 </tr>
 <tr>
 <td>Item Description:</td><td><input type="text" name="description"></td>
 </tr>
 <tr>
-<td>Where You Last Saw It:</td><td><select name="location_id">
+<td>Where You Found It:</td><td><select name="location_id">
 <?php location_dropdown(); ?>
 </td>
 </tr>

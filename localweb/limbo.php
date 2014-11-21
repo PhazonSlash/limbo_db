@@ -28,7 +28,7 @@ require( 'limbo/limboincludes/limbo_helpers.php' ) ;
 
 
 # Show the records
-show_item_by_location($dbc);
+#show_item_by_location($dbc);
 
 # Close the connection
 mysqli_close( $dbc ) ;
