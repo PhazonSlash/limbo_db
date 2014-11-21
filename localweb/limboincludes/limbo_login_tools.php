@@ -7,7 +7,7 @@ RC	 7-Nov-13	Created.
 -->
 <?php
 # Includes these helper functions
-require( 'limboincludes/limbo_helpers.php' ) ;
+require( '../limboincludes/limbo_helpers.php' ) ;
 
 # Loads a specified or default URL.
 function load( $page = 'admin_change.php', $pid = -1 )

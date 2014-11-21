@@ -20,7 +20,7 @@ function check_results($results) {
 ########################################################################################################################
 function location_dropdown(){
 # Connect to MySQL server and the database
-require( 'connect_limbo_db.php' ) ;
+require( '../limboincludes/connect_limbo_db.php' ) ;
 
 # Create a query to get the name and price sorted by price
 $query = 'SELECT DISTINCT id, name
@@ -58,7 +58,7 @@ mysqli_close( $dbc ) ;
 ############################################################################################################################################
 function show_item_by_location($dbc, $loc_id){
 # Connect to MySQL server and the database
-require( 'connect_limbo_db.php' ) ;
+require( '../limboincludes/connect_limbo_db.php' ) ;
 
 # Create a query to get the name and price sorted by price
  if($loc_id == 0){
@@ -122,7 +122,7 @@ mysqli_close( $dbc ) ;
 
 function show_item($dbc){
 # Connect to MySQL server and the database
-require( 'connect_limbo_db.php' ) ;
+require( '../limboincludes/connect_limbo_db.php' ) ;
 $item_id = $_GET["id"];
 # Create a query to get the name and price sorted by price
 $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.create_date, stuff.update_date, room, owner, finder, status
@@ -188,7 +188,7 @@ mysqli_close( $dbc ) ;
 # Searches for items in database
 function search($dbc, $status, $item) {
 # Connect to MySQL server and the database
-require( 'connect_limbo_db.php' ) ;
+require( '../limboincludes/connect_limbo_db.php' ) ;
 
 # Create a query to get the name and price sorted by price
 $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.create_date, stuff.update_date, room, owner, finder, status
@@ -242,7 +242,7 @@ mysqli_close( $dbc ) ;
 
 function admin_change_item($dbc){
 # Connect to MySQL server and the database
-require( 'connect_limbo_db.php' ) ;
+require( '../limboincludes/connect_limbo_db.php' ) ;
 
 # Create a query to get the name and price sorted by price
 $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.create_date, stuff.update_date, room, owner, finder, status

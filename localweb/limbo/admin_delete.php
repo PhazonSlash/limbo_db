@@ -14,10 +14,10 @@
 	
 <?php
 # Connect to MySQL server and the database
-require( 'limboincludes/connect_limbo_db.php' ) ;
+require( '../limboincludes/connect_limbo_db.php' ) ;
 
 # Includes these helper functions
-require( 'limboincludes/limbo_helpers.php' ) ;
+require( '../limboincludes/limbo_helpers.php' ) ;
 
 
 # Show the records

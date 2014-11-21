@@ -17,10 +17,10 @@
 	<p>You can report a new lost item here.</p>
 <?php
 # Connect to MySQL server and the database
-require( 'limboincludes/connect_limbo_db.php' ) ;
+require( '../limboincludes/connect_limbo_db.php' ) ;
 
 # Includes these helper functions
-require( 'limboincludes/limbo_helpers.php' ) ;
+require( '../limboincludes/limbo_helpers.php' ) ;
 
 # location, description, create_date, update_date, room, owner, finder, status
 

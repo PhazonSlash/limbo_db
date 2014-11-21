@@ -10,10 +10,10 @@ RC  07-Nov-13   Created.
 <title>Login</title>
 <?php
 # Connect to MySQL server and the database
-require( 'limboincludes/connect_limbo_db.php' ) ;
+require( '../limboincludes/connect_limbo_db.php' ) ;
 
 # Connect to MySQL server and the database
-require( 'limboincludes/limbo_login_tools.php' ) ;
+require( '../limboincludes/limbo_login_tools.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
