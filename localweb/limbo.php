@@ -12,13 +12,6 @@
 	<p>If you lost or found something, you're in luck this is the place to report it.</p>
 	
 	<p>Reported in Last: </p>
-	<form action="">
-		<select name="Options">
-			<option value="week">Week</option>
-			<option value="month">Month</option>
-			<option value="year">Year</option>
-		</select>
-	</form>
 <?php
 # Connect to MySQL server and the database
 require( '/limboincludes/connect_limbo_db.php' ) ;
@@ -26,12 +19,34 @@ require( '/limboincludes/connect_limbo_db.php' ) ;
 # Includes these helper functions
 require( '/limboincludes/limbo_helpers.php' ) ;
 
+ echo '<form action="">';
+ echo	'<select name="days">';
+ echo '<option value=7>Week</option>';
+ echo '<option value=30>Month</option>';
+ echo '<option value=365>Year</option>'; 
+ echo  '<input type="submit" value="Submit">'; 
+ echo	'</select>';
+ echo  '</form>';
+
+if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
+	
+	$lname = $_POST['name'] ;
+	
+	$item = $_POST['item'] ;
+	
+	$location = $_POST['location'] ;
+    }
+	else if($_SERVER[ 'REQUEST_METHOD' ] == 'GET') {
+		if(isset($_GET['id']))
+			show_record($dbc, $_GET['id']) ;
+		}
 
 # Show the records
-#show_item_by_location($dbc);
-
-# Close the connection
-mysqli_close( $dbc ) ;
+if(isset($_GET['days'])){
+show_item_by_date_range($dbc, $_GET['days']);
+} else {
+show_item_by_date_range($dbc, 7);
+}
 ?>
  </body>
 </html>

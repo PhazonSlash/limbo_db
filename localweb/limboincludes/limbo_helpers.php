@@ -40,7 +40,6 @@ if( $results )
 	echo '<option value ="' . $row['id'] . '">'. $row['name'] .'</option>' ;
 
   }
- 
 
   # Free up the results in memory
   mysqli_free_result( $results ) ;
@@ -193,7 +192,7 @@ require( '../limboincludes/connect_limbo_db.php' ) ;
 # Create a query to get the name and price sorted by price
 $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.create_date, stuff.update_date, room, owner, finder, status
 		  FROM locations, stuff
-		  WHERE locations.id = stuff.location_id AND status = "' . $status .'" AND description = "' . $item .'"' ;
+		  WHERE locations.id = stuff.location_id AND status = "' . $status .'" AND description LIKE "%' . $item .'%"' ;
 
 # Execute the query
 $results = mysqli_query( $dbc , $query ) ;
@@ -326,4 +325,134 @@ function show_query($query) {
   if($debug)
     echo "<p>Query = $query</p>" ;
 }
+############################################################################################################################################
+function show_item_by_date_range($dbc, $days){
+# Connect to MySQL server and the database
+require( '/limboincludes/connect_limbo_db.php' ) ;
+
+
+# Create a query to get the name and price sorted by price
+ $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.create_date, stuff.update_date, room, owner, finder, status
+		  FROM locations, stuff
+		  WHERE locations.id = stuff.location_id and (stuff.create_date > DATE_SUB(NOW(), INTERVAL ' . $days . ' DAY)) 
+		  ORDER BY locations.id ASC' ;
+# Execute the query
+$results = mysqli_query( $dbc , $query ) ;
+
+# Show results
+if( $results )
+{
+  # But...wait until we know the query succeeded before
+  # starting the table.
+  echo '<TABLE border="1">';
+  echo '<TR>';
+ # echo '<TH>Location ID</TH>';
+  echo '<TH>Location</TH>';
+  echo '<TH>Item Description</TH>';
+  echo '<TH>Status</TH>';
+  echo '</TR>';
+
+  # For each row result, generate a table row
+  while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
+  {
+	$alink = '<A HREF=/limbo/item.php?id=' . $row['stuff_id'] . '>' . $row['description'] . '</A>' ;
+    echo '<TR>' ;
+ #   echo '<TD>' . $row['id'] . '</TD>' ;
+	echo '<TD>' . $row['name'] . '</TD>' ;
+	echo '<TD>' . $alink . '</TD>' ;
+	echo '<TD>' . $row['status'] . '</TD>' ;
+    echo '</TR>' ;
+  }
+  
+  
+  
+  # End the table
+  echo '</TABLE>';
+
+  # Free up the results in memory
+  mysqli_free_result( $results ) ;
+}
+else
+{
+  # If we get here, something has gone wrong
+  echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+}
+
+# Close the connection
+mysqli_close( $dbc ) ;
+}
+############################################################################################################################################
+function show_item_by_status($dbc, $status_id){
+# Connect to MySQL server and the database
+require( '../limboincludes/connect_limbo_db.php' ) ;
+
+# Create a query to get the name and price sorted by price
+ $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.create_date, stuff.update_date, room, owner, finder, status
+		  FROM locations, stuff
+		  WHERE locations.id = stuff.location_id and status = ' . $status_id . '
+		  ORDER BY locations.id ASC' ;
+# Execute the query
+$results = mysqli_query( $dbc , $query ) ;
+
+# Show results
+if( $results )
+{
+  # But...wait until we know the query succeeded before
+  # starting the table.
+  echo '<TABLE border="1">';
+  echo '<TR>';
+ # echo '<TH>Location ID</TH>';
+  echo '<TH>Location</TH>';
+  echo '<TH>Item Description</TH>';
+  echo '<TH>Status</TH>';
+  echo '</TR>';
+
+  # For each row result, generate a table row
+  while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
+  {
+	$alink = '<A HREF=/limbo/item.php?id=' . $row['stuff_id'] . '>' . $row['description'] . '</A>' ;
+    echo '<TR>' ;
+ #   echo '<TD>' . $row['id'] . '</TD>' ;
+	echo '<TD>' . $row['name'] . '</TD>' ;
+	echo '<TD>' . $alink . '</TD>' ;
+	echo '<TD>' . $row['status'] . '</TD>' ;
+    echo '</TR>' ;
+  }
+  
+  
+  
+  # End the table
+  echo '</TABLE>';
+
+  # Free up the results in memory
+  mysqli_free_result( $results ) ;
+}
+else
+{
+  # If we get here, something has gone wrong
+  echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+}
+
+# Close the connection
+mysqli_close( $dbc ) ;
+}
+##########################################################################################################################################
+function check_status($status){
+	if(isset($_GET['status_id'])){ 
+		if($status == $_GET['status_id']){
+		return 'selected';
+		}
+	}
+	return '';
+}
+##########################################################################################################################################
+function check_type($type){
+	if(isset($_GET['type'])){ 
+		if($type == $_GET['type']){
+		return 'selected';
+		}
+	}
+	return '';
+}
+##########################################################################################################################################
 ?>
