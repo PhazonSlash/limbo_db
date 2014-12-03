@@ -239,7 +239,7 @@ else
 mysqli_close( $dbc ) ;
 }
 
-function admin_change_item($dbc){
+function admin_change_item_table($dbc){
 # Connect to MySQL server and the database
 require( '../limboincludes/connect_limbo_db.php' ) ;
 
@@ -247,7 +247,7 @@ require( '../limboincludes/connect_limbo_db.php' ) ;
 $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.create_date, stuff.update_date, room, owner, finder, status
 		  FROM locations, stuff
 		  WHERE locations.id = stuff.location_id
-		  ORDER BY locations.id ASC';
+		  ORDER BY stuff_id ASC';
 $queryStatus = 'SELECT status FROM stuff ';
 # Execute the query
 $results = mysqli_query( $dbc , $query ) ;
@@ -261,9 +261,10 @@ if( $results)
   # starting the table.
   echo '<TABLE border="1">';
   echo '<TR>';
+  echo '<TH>Item ID</TH>';
+  echo '<TH>Item Description</TH>';
   echo '<TH>Location ID</TH>';
   echo '<TH>Location</TH>';
-  echo '<TH>Item Description</TH>';
   echo '<TH>Create Date</TH>';
   echo '<TH>Update Date</TH>';
   echo '<TH>Room</TH>';
@@ -278,9 +279,10 @@ if( $results)
   {
 
 	echo '<TR>' ;
-    echo '<TD>' . $row['id'] . '</TD>' ;
-	echo '<TD>' . $row['name'] . '</TD>' ;
+	echo '<TD>' . $row['stuff_id'] . '</TD>' ;
 	echo '<TD>' . $row['description'] . '</TD>' ;
+	echo '<TD>' . $row['id'] . '</TD>' ;
+	echo '<TD>' . $row['name'] . '</TD>' ;
     echo '<TD>' . $row['create_date'] . '</TD>' ;
 	echo '<TD>' . $row['update_date'] . '</TD>' ;
 	echo '<TD>' . $row['room'] . '</TD>' ;
@@ -289,10 +291,11 @@ if( $results)
 	echo '<TD>' . $row['status'] . '</TD>' ;
 	echo '<TD> 
 								<form action="" method="post">
-								<select id="cmbChangeStatus" name="ChangeStatus" >
+								<select id="cmbChangeStatus" name="change_status" >
 								<option value="lost" id="lost" '.check_current_status('lost', $row['status']). ' >Lost</option>
 								<option value="found" id="found" '.check_current_status('found', $row['status']). ' >Found</option>
-								<option value="status" id="claimed" '.check_current_status('claimed', $row['status']). ' >Claimed</option>
+								<option value="claimed" id="claimed" '.check_current_status('claimed', $row['status']). ' >Claimed</option>
+								<input type="hidden" name="id" value=' . $row['stuff_id'] .' />
 								 <input type="submit" value="Submit">
 							</select>
 							</form>
@@ -443,8 +446,8 @@ mysqli_close( $dbc ) ;
 }
 ##########################################################################################################################################
 function check_status($status){
-	if(isset($_SESSION['status_id'])){ 
-		if($status == $_SESSION['status_id']){
+	if(isset($_POST['status_id'])){ 
+		if($status == $_POST['status_id']){
 		return 'selected';
 		}
 	}
@@ -452,12 +455,21 @@ function check_status($status){
 }
 ##########################################################################################################################################
 function check_type($type){
-	if(isset($_SESSION['type'])){ 
-		if($type == $_SESSION['type']){
+	if(isset($_POST['type'])){ 
+		if($type == $_POST['type']){
 		return 'selected';
 		}
 	}
 	return '';
 }
 ##########################################################################################################################################
+function update_status($dbc, $id, $status){
+$update_query = 'UPDATE stuff SET status="'. $status .'" WHERE stuff_id = '. $id .'';
+
+  $results = mysqli_query($dbc, $update_query) ;
+  check_results($results) ;
+
+  return $results ;
+
+}
 ?>

@@ -19,34 +19,27 @@ require( '/limboincludes/connect_limbo_db.php' ) ;
 # Includes these helper functions
 require( '/limboincludes/limbo_helpers.php' ) ;
 
- echo '<form action="">';
+if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
+	
+	$days = $_POST['days'] ;
+	
+    } else {
+		$days = '7';
+	}
+
+ echo '<form action="" method="post">';
  echo	'<select name="days">';
- echo '<option value=7>Week</option>';
- echo '<option value=30>Month</option>';
- echo '<option value=365>Year</option>'; 
+ echo '<option value=7 '. check_current_status('7', $days) .'>Week</option>';
+ echo '<option value=30 '. check_current_status('30', $days) .'>Month</option>';
+ echo '<option value=365 '. check_current_status('365', $days) .'>Year</option>'; 
  echo  '<input type="submit" value="Submit">'; 
  echo	'</select>';
  echo  '</form>';
 
-if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
-	
-	$lname = $_POST['name'] ;
-	
-	$item = $_POST['item'] ;
-	
-	$location = $_POST['location'] ;
-    }
-	else if($_SERVER[ 'REQUEST_METHOD' ] == 'GET') {
-		if(isset($_GET['id']))
-			show_record($dbc, $_GET['id']) ;
-		}
 
 # Show the records
-if(isset($_GET['days'])){
-show_item_by_date_range($dbc, $_GET['days']);
-} else {
-show_item_by_date_range($dbc, 7);
-}
+show_item_by_date_range($dbc, $days);
+
 ?>
  </body>
 </html>
