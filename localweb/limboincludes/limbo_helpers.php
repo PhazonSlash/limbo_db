@@ -239,7 +239,7 @@ else
 mysqli_close( $dbc ) ;
 }
 
-function admin_change_item($dbc, $changeStatus){
+function admin_change_item($dbc){
 # Connect to MySQL server and the database
 require( '../limboincludes/connect_limbo_db.php' ) ;
 
@@ -255,7 +255,7 @@ $resultsStatus = mysqli_query( $dbc , $query ) ;
 
 
 # Show results
-if( $results AND $resultsStatus ) 
+if( $results) 
 {
   # But...wait until we know the query succeeded before
   # starting the table.
@@ -273,17 +273,6 @@ if( $results AND $resultsStatus )
   echo '<TH>Change Status</TH>';
   echo '</TR>' ;
   
-while ( $row = mysqli_fetch_array( $resultsStatus , MYSQLI_ASSOC ) )
-  {
-  $changeStatus = 	$row= 	'<select id="cmbChangeStatus" name="ChangeStatus" >
-								<option value="status" '.check_type($row['status']). '>' . $row['status'] . '</option>
-								<option value="Lost" id="lost" >Lost</option>
-								<option value="found" id="found" >Found</option>
-								<option value="status" id="claimed" >Claimed</option>
-							</select>' ;
-	
-	}
-
   # For each row result, generate a table row
   while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   {
@@ -298,7 +287,16 @@ while ( $row = mysqli_fetch_array( $resultsStatus , MYSQLI_ASSOC ) )
 	echo '<TD>' . $row['owner'] . '</TD>' ;
 	echo '<TD>' . $row['finder'] . '</TD>' ;
 	echo '<TD>' . $row['status'] . '</TD>' ;
-	echo '<TD>' . $changeStatus . '</TD>';
+	echo '<TD> 
+								<form action="" method="post">
+								<select id="cmbChangeStatus" name="ChangeStatus" >
+								<option value="lost" id="lost" '.check_current_status('lost', $row['status']). ' >Lost</option>
+								<option value="found" id="found" '.check_current_status('found', $row['status']). ' >Found</option>
+								<option value="status" id="claimed" '.check_current_status('claimed', $row['status']). ' >Claimed</option>
+								 <input type="submit" value="Submit">
+							</select>
+							</form>
+	</TD>';
     echo '</TR>' ;
   }
   
@@ -319,7 +317,13 @@ else
 # Close the connection
 mysqli_close( $dbc ) ;
 }
-
+############################################################################################################################################
+function check_current_status($option, $status){
+ if($option == $status)
+	return 'selected';
+ return '';
+}
+############################################################################################################################################
 function show_query($query) {
   global $debug;
 
@@ -390,7 +394,7 @@ require( '../limboincludes/connect_limbo_db.php' ) ;
 # Create a query to get the name and price sorted by price
  $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.create_date, stuff.update_date, room, owner, finder, status
 		  FROM locations, stuff
-		  WHERE locations.id = stuff.location_id and status = ' . $status_id . '
+		  WHERE locations.id = stuff.location_id and status = "' . $status_id . '"
 		  ORDER BY locations.id ASC' ;
 # Execute the query
 $results = mysqli_query( $dbc , $query ) ;
@@ -439,8 +443,8 @@ mysqli_close( $dbc ) ;
 }
 ##########################################################################################################################################
 function check_status($status){
-	if(isset($_GET['status_id'])){ 
-		if($status == $_GET['status_id']){
+	if(isset($_SESSION['status_id'])){ 
+		if($status == $_SESSION['status_id']){
 		return 'selected';
 		}
 	}
@@ -448,8 +452,8 @@ function check_status($status){
 }
 ##########################################################################################################################################
 function check_type($type){
-	if(isset($_GET['type'])){ 
-		if($type == $_GET['type']){
+	if(isset($_SESSION['type'])){ 
+		if($type == $_SESSION['type']){
 		return 'selected';
 		}
 	}

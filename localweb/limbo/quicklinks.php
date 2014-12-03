@@ -15,8 +15,24 @@
 	<h1>Quick Links</h1>
   </div>
 <?php
+session_start();
+
+#Initialize Session Variables
+
+if(isset($_SESSION["status_id"])){
+ $status_id = $_SESSION["status_id"];
+} else{
+ $status_id = 'lost';
+ }
+ 
+if(isset($_SESSION["type"])){
+ $type = $_SESSION["type"];
+} else{
+ $type = '0';
+}
+
 function location_form($dbc){
- echo '<form action="">';
+ echo '<form action="quicklinks.php">';
  echo	'<select name="loc_id">';
  echo '<option value=0>All Locations</option>';
 	location_dropdown();
@@ -32,8 +48,8 @@ function location_form($dbc){
 	}
 }
 
-function status_form($dbc){
- echo '<form action="">';
+function status_form($dbc, $status_id){
+ echo '<form action="quicklinks.php">';
  echo	'<select name="status_id">';
  echo '<option value=lost ' . check_status('lost') . '>Lost</option>';
  echo '<option value=found ' . check_status('found') . '>Found</option>';
@@ -42,19 +58,18 @@ function status_form($dbc){
  echo	'</select>';
  echo  '</form>';
   if(isset($_GET['status_id'])){
-	show_item_by_status($dbc, $_GET['status_id']);
-	} else {
-	show_item_by_status($dbc, 0);
+	$status_id = $_GET['status_id'];
+	$_SESSION["status_id"] = $status_id;
 	}
+	$_SESSION["type"] = '1';
+	show_item_by_status($dbc, $status_id);
 }
-
-
 # Connect to MySQL server and the database
 require( '../limboincludes/connect_limbo_db.php' ) ;
 
 # Includes these helper functions
 require( '../limboincludes/limbo_helpers.php' ) ;
- echo '<form action="">';
+ echo '<form action="quicklinks.php">';
  echo	'<select name="type">';
  echo '<option value=0 ' . check_type('0') . '>Location</option>';
 echo '<option value=1 ' . check_type('1') . '>Status</option>';
@@ -63,14 +78,21 @@ echo '<option value=1 ' . check_type('1') . '>Status</option>';
  echo  '</form>';
  
  if(isset($_GET['type'])){
-	if($_GET['type'] == '0'){
-		location_form($dbc);
-	} else if($_GET['type'] == '1') {
-		status_form($dbc);
-	}
-} else {
+	$type = $_GET['type'];
+	$_SESSION["type"] = $type;
+ } else {
+   $type = $type;
+   }
+   #TESTING
+ #echo '<p> Type = ' . $type . ' </p>';
+ #echo '<p> Status_ID = ' . $status_id . ' </p>';
+   #/TESTING
+if($type == '0'){
 	location_form($dbc);
+} else if(isset($_GET['status_id']) || $type == '1') {
+	status_form($dbc, $status_id);
 }
+
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	
 	$type = $_POST['name'] ;
