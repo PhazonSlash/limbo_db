@@ -239,7 +239,7 @@ else
 mysqli_close( $dbc ) ;
 }
 
-function admin_change_item($dbc){
+function admin_change_item($dbc, $changeStatus){
 # Connect to MySQL server and the database
 require( '../limboincludes/connect_limbo_db.php' ) ;
 
@@ -251,7 +251,7 @@ $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.creat
 $queryStatus = 'SELECT status FROM stuff ';
 # Execute the query
 $results = mysqli_query( $dbc , $query ) ;
-$resultsStatus = mysqli_query( $dbc , $queryStatus ) ;
+$resultsStatus = mysqli_query( $dbc , $query ) ;
 
 
 # Show results
@@ -276,11 +276,12 @@ if( $results AND $resultsStatus )
 while ( $row = mysqli_fetch_array( $resultsStatus , MYSQLI_ASSOC ) )
   {
   $changeStatus = 	$row= 	'<select id="cmbChangeStatus" name="ChangeStatus" >
-								<option value="status" >' . $row['status'] . '</option>
+								<option value="status" '.check_type($row['status']). '>' . $row['status'] . '</option>
 								<option value="Lost" id="lost" >Lost</option>
 								<option value="found" id="found" >Found</option>
 								<option value="status" id="claimed" >Claimed</option>
 							</select>' ;
+	
 	}
 
   # For each row result, generate a table row
