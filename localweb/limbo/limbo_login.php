@@ -7,7 +7,6 @@ RC  07-Nov-13   Created.
 -->
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="limbo/limboCSS.css">    
 <title>Login</title>
 <?php
 # Connect to MySQL server and the database

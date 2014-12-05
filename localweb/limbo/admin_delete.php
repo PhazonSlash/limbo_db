@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="limbo/limboCSS.css">    
+<link rel="stylesheet" type="text/css" href="limbo/limboCSS.css"> 
  <title>Delete Entries</title>
  <body>
   <div>
    <p>
     <a href="/limbo/lost.php">Lost Something</a> <a href="/limbo/found.php">Found Something</a> <a href="/limbo/quicklinks.php">Quick Links</a> 
-	<a href="/limbo/admin_change.php">Change Status</a> <a href="/limbo/admin_delete.php">Remove Entries</a>
+	<a href="/limbo/admin_change.php">Change Status</a> <a href="/limbo/admin_delete.php">Remove Entries</a> <a href="/limbo/admin_change_password.php">Change Password</a>
    </p>
   </div>
 	<h1>Delete Entries</h1>

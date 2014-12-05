@@ -41,7 +41,7 @@ function validate($prname = '', $prpass = '')
       return -1 ;
 
     # Make the query
-    $query = "SELECT first_name, pass FROM users WHERE first_name ='" . $prname . "' AND pass ='" . $prpass . "'" ;
+    $query = "SELECT user_id, first_name, pass FROM users WHERE first_name ='" . $prname . "' AND pass ='" . $prpass . "'" ;
     show_query($query) ;
 
     # Execute the query
@@ -55,7 +55,7 @@ function validate($prname = '', $prpass = '')
     # We have at least one row, so get the frist one and return it
     $row = mysqli_fetch_array($results, MYSQLI_ASSOC) ;
 
-    $pid = $row [ 'id' ] ;
+    $pid = $row [ 'user_id' ] ;
 
     return intval($pid) ;
 }
