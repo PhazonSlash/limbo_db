@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<link rel="stylesheet" type="text/css" href="limbo/limboCSS.css">    
  <title>Limbo Database</title>
  <body>
   <div>
@@ -35,7 +35,6 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
  echo  '<input type="submit" value="Submit">'; 
  echo	'</select>';
  echo  '</form>';
-
 
 # Show the records
 show_item_by_date_range($dbc, $days);

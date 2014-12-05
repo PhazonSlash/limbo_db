@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<link rel="stylesheet" type="text/css" href="limbo/limboCSS.css">    
  <title>Edit Status</title>
  <body>
   <div>
