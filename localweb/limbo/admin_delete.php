@@ -21,7 +21,14 @@ require( '../limboincludes/limbo_helpers.php' ) ;
 
 
 # Show the records
-admin_change_item($dbc);
+if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
+	
+	$id = $_POST['id'] ;
+	
+	delete_item($dbc, $id);
+	}
+	
+	admin_delete_item($dbc);
 
 # Close the connection
 mysqli_close( $dbc ) ;
