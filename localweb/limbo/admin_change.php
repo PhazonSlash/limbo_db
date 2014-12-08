@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-
+ <link rel="stylesheet" type="text/css" href="limboCSS.css"> 
  <title>Edit Status</title>
- <link rel="stylesheet" type="text/css" href="limbo/limboCSS.css"> 
+
  <body>
   <div>
    <p>

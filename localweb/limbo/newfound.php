@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="limbo/limboCSS.css">    
+<link rel="stylesheet" type="text/css" href="limboCSS.css">    
 <script>
 	function goBack() {
 		window.history.back()
