@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
 	
 #Populate users
 INSERT INTO users (first_name, last_name, email, pass, reg_date)
-VALUES ("admin", "", "N/A", "gaze11e", now());
+VALUES ("admin", "", "admin@limbo.marist.edu", "gaze11e", now());
 
 #Remove the old table
 DROP TABLE IF EXISTS stuff;
@@ -49,9 +49,12 @@ VALUES  (3, "cell phone", now(), now(), "101", "", "Steve", "found"),
 		(17, "laptop", now(), now(), "201", "", "Dan", "found"),
 		(12, "notebook", now(), now(), "106", "Frank", "Mac", "claimed"),
 		(1, "pencil", now(), now(), "207", "Tom", "", "lost"),
-		(14, "shoe", now(), now(), "0005", "Chris", "", "lost");
-		
-
+		(14, "shoe", now(), now(), "0005", "Chris", "", "lost"),
+		(14, "envelope", DATE_SUB(NOW(), INTERVAL 14 DAY), DATE_SUB(NOW(), INTERVAL 14 DAY), "0005", "", "Brian", "found"),
+		(13, "Acura car keys", DATE_SUB(NOW(), INTERVAL 16 DAY), DATE_SUB(NOW(), INTERVAL 16 DAY), "", "", "Amy", "found"),
+		(6, "TI-83 graphing calculator black", DATE_SUB(NOW(), INTERVAL 36 DAY), DATE_SUB(NOW(), INTERVAL 36 DAY), "", "John", "", "lost"),
+		(22, "red scarf", DATE_SUB(NOW(), INTERVAL 8 DAY), DATE_SUB(NOW(), INTERVAL 8 DAY), "", "Trevor ", "", "lost"),
+		(26, "black sunglasses", DATE_SUB(NOW(), INTERVAL 180 DAY), DATE_SUB(NOW(), INTERVAL 180 DAY), "", "Trevor", "Sandy", "claimed");
 #Remove the old table
 DROP TABLE IF EXISTS locations;
 

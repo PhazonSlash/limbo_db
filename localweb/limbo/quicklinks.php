@@ -82,6 +82,8 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	}
 	if(isset($_POST['status_id'])){
 		$status = $_POST['status_id'] ;
+	} else {
+		$status = 'lost';
 	}
 	
    if(isset($type)){
