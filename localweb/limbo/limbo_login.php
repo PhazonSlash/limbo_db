@@ -37,7 +37,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 <form action="limbo_login.php" method="POST">
 <table>
 <tr>
-<td>Name:</td><td><input type="text" name="name"></td>
+<td>Email:</td><td><input type="text" name="name"></td>
 </tr>
 <tr>
 <td>Password:</td><td><input type="text" name="password"></td>

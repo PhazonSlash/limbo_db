@@ -44,7 +44,7 @@ if (validate($name, $old) == -1){
 		echo '<p style="color:red">New passwords do not match!</p>';
 	} else{
 
-	$update_query = 'UPDATE users SET pass="'. $new .'" WHERE first_name = "'. $name .'"';
+	$update_query = 'UPDATE users SET pass="'. $new .'" WHERE email = "'. $name .'"';
 	$results = mysqli_query($dbc, $update_query) ;
 	check_results($results) ;
 	echo '<p style="color:red">Update Successful!</p>';
@@ -54,7 +54,7 @@ if (validate($name, $old) == -1){
     }
 echo '<form action="" method="POST">';
 echo '<table>';
-echo '<tr><td>User Name:</td><td><input type="text" name="name"></td></tr>';
+echo '<tr><td>Email:</td><td><input type="text" name="name"></td></tr>';
 echo '<tr><td>Old Password:</td><td><input type="text" name="old"></td></tr>';
 echo '<tr><td>New Password:</td><td><input type="text" name="new"></td></tr>';
 echo '<tr><td>Confirm New Password:</td><td><input type="text" name="cnew"></td></tr>';

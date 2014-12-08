@@ -41,7 +41,7 @@ function validate($prname = '', $prpass = '')
       return -1 ;
 
     # Make the query
-    $query = "SELECT user_id, first_name, pass FROM users WHERE first_name ='" . $prname . "' AND pass ='" . $prpass . "'" ;
+    $query = "SELECT user_id, first_name, pass FROM users WHERE email ='" . $prname . "' AND pass ='" . $prpass . "'" ;
     show_query($query) ;
 
     # Execute the query
