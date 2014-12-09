@@ -9,7 +9,7 @@
    </p>
   </div>
 	<h1>Welcome to Limbo!</h1>
-	<p>If you lost or found something, you're in luck this is the place to report it.</p>
+	<p>If you lost or found something, you're in luck! This is the place to report it.</p>
 	
 	<p>Reported in Last: </p>
 <?php
