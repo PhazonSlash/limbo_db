@@ -40,7 +40,7 @@ search($dbc, $status, $item);
 # Close the connection
 mysqli_close( $dbc ) ;
 ?>
-<a href="/limbo/newlost.php">Click Here to Report a New Found Item</a><br>
+<a href="/limbo/newfound.php">Click Here to Report a New Found Item</a><br>
 <br>
 <button onclick="goBack()">Go Back</button>
  </body>
