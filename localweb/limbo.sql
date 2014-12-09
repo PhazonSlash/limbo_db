@@ -17,13 +17,27 @@ CREATE TABLE IF NOT EXISTS users (
 	email VARCHAR(60) NOT NULL,
 	pass CHAR(40) NOT NULL,
 	reg_date DATETIME NOT NULL,
+	phone VARCHAR(15),
 	PRIMARY KEY (user_id),
 	UNIQUE (email)
 	);
 	
 #Populate users
-INSERT INTO users (first_name, last_name, email, pass, reg_date)
-VALUES ("admin", "", "admin@limbo.marist.edu", "gaze11e", now());
+INSERT INTO users (first_name, last_name, email, pass, reg_date, phone)
+VALUES ("admin", "", "admin@limbo.marist.edu", "gaze11e", now(), "(555) 555-5555"),
+	   ("Tom", "Smith", "ts123@email.com", "", now(), "(555) 555-5555"),
+	   ("Melissa", "Reynolds", "mr123@email.com", "", now(), "(555) 555-5555"),
+	   ("Chris", "Griffin", "cg123@email.com", "", now(), "(555) 555-5555"),
+       ("John", "Jackson", "jj123@email.com", "", now(), "(555) 555-5555"),
+	   ("Jerry", "Anderson", "ja123@email.com", "", now(), "(555) 555-5555"),
+	   ("Jack", "Johnson", "jj321@email.com", "", now(), "(555) 555-5555"),
+	   ("Mike", "Jordan", "mj123@email.com", "", now(), "(555) 555-5555"),
+	   ("Janet", "Day", "jd123@email.com", "", now(), "(555) 555-5555"),
+	   ("Amy", "Smith", "as123@email.com", "", now(), "(555) 555-5555"),
+	   ("Cave", "Johnson", "cj123@email.com", "", now(), "(555) 555-5555"),
+	   ("Trevor", "Phillips", "tp123@email.com", "", now(), "(555) 555-5555"),
+       ("Kristen", "Thompson", "kt123@email.com", "", now(), "(555) 555-5555"),
+	   ("Joe", "Smith", "js123@email.com", "", now(), "(555) 555-5555");
 
 #Remove the old table
 DROP TABLE IF EXISTS stuff;
@@ -43,18 +57,18 @@ CREATE TABLE IF NOT EXISTS stuff (
 	
 #Populate stuff
 INSERT INTO stuff (location_id, description, create_date, update_date, room, owner, finder, status)
-VALUES  (3, "cell phone", now(), now(), "101", "", "Steve", "found"),
-		(5, "text book", now(), now(), "105", "Frank", "", "lost"),
-		(20, "pen", now(), now(), "", "", "Mac", "found"),
-		(17, "laptop", now(), now(), "201", "", "Dan", "found"),
-		(12, "notebook", now(), now(), "106", "Frank", "Mac", "claimed"),
-		(1, "pencil", now(), now(), "207", "Tom", "", "lost"),
-		(14, "shoe", now(), now(), "0005", "Chris", "", "lost"),
-		(14, "envelope", DATE_SUB(NOW(), INTERVAL 14 DAY), DATE_SUB(NOW(), INTERVAL 14 DAY), "0005", "", "Brian", "found"),
-		(13, "Acura car keys", DATE_SUB(NOW(), INTERVAL 16 DAY), DATE_SUB(NOW(), INTERVAL 16 DAY), "", "", "Amy", "found"),
-		(6, "TI-83 graphing calculator black", DATE_SUB(NOW(), INTERVAL 36 DAY), DATE_SUB(NOW(), INTERVAL 36 DAY), "", "John", "", "lost"),
-		(22, "red scarf", DATE_SUB(NOW(), INTERVAL 8 DAY), DATE_SUB(NOW(), INTERVAL 8 DAY), "", "Trevor ", "", "lost"),
-		(26, "black sunglasses", DATE_SUB(NOW(), INTERVAL 180 DAY), DATE_SUB(NOW(), INTERVAL 180 DAY), "", "Trevor", "Sandy", "claimed");
+VALUES  (3, "cell phone", now(), now(), "101", "", "2", "found"),
+		(5, "text book", now(), now(), "105", "3", "", "lost"),
+		(20, "pen", now(), now(), "", "", "4", "found"),
+		(17, "laptop", now(), now(), "201", "", "5", "found"),
+		(12, "notebook", now(), now(), "106", "6", "7", "claimed"),
+		(1, "pencil", now(), now(), "207", "8", "", "lost"),
+		(14, "shoe", now(), now(), "0005", "9", "", "lost"),
+		(14, "envelope", DATE_SUB(NOW(), INTERVAL 14 DAY), DATE_SUB(NOW(), INTERVAL 14 DAY), "0005", "", "10", "found"),
+		(13, "Acura car keys", DATE_SUB(NOW(), INTERVAL 16 DAY), DATE_SUB(NOW(), INTERVAL 16 DAY), "", "", "11", "found"),
+		(6, "TI-83 graphing calculator black", DATE_SUB(NOW(), INTERVAL 36 DAY), DATE_SUB(NOW(), INTERVAL 36 DAY), "", "12", "", "lost"),
+		(22, "red scarf", DATE_SUB(NOW(), INTERVAL 8 DAY), DATE_SUB(NOW(), INTERVAL 8 DAY), "", "13 ", "", "lost"),
+		(26, "black sunglasses", DATE_SUB(NOW(), INTERVAL 180 DAY), DATE_SUB(NOW(), INTERVAL 180 DAY), "", "13", "14", "claimed");
 #Remove the old table
 DROP TABLE IF EXISTS locations;
 
