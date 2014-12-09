@@ -1,14 +1,53 @@
 <?php
 $debug = true;
 # Inserts a record into the stuff table
-function insert_record($dbc, $location_id, $description, $room, $owner, $finder, $status) {
+function insert_record($dbc, $location_id, $description, $room, $first, $last, $email, $phone, $status) {
+  $existing_user_id = getUserId($dbc, $first, $last, $email);
+
+ if ($existing_user_id == -1){
+ $insert_query = 'INSERT INTO users(first_name, last_name, email, pass, reg_date, phone) 
+		VALUES ("' . $first . '" , "' . $last . '" , "'. $email .'", "", now(), "' . $phone . '")' ;
+		
+  $results = mysqli_query($dbc, $insert_query) ;
+  check_results($results) ;
+  
+   $existing_user_id = getUserId($dbc, $first, $last, $email);
+ }
+  
+  if($status == 'lost'){
+	$owner_id = $existing_user_id;
+  } else {
+    $owner_id = '';
+  }
+  if($status == 'found'){
+	$finder_id = $existing_user_id;
+  } else {
+    $finder_id = '';
+  }
+	
   $insert_query = 'INSERT INTO stuff(location_id, description, create_date, update_date, room, owner, finder, status) 
-		VALUES (' . $location_id . ' , "' . $description . '" , now(), now(), "' . $room . ' ", "' . $owner . '" , "' . $finder . '" ,"' . $status . '")' ;
+		VALUES (' . $location_id . ' , "' . $description . '" , now(), now(), "' . $room . ' ", "' . $owner_id . '" , "' . $finder_id . '" ,"' . $status . '")' ;
 
   $results = mysqli_query($dbc, $insert_query) ;
   check_results($results) ;
 
   return $results ;
+}
+########################################################################################################################
+function getUserId($dbc, $first, $last, $email){
+  $get_id_query = 'SELECT user_id, first_name, last_name, email 
+				   FROM users 
+				   WHERE first_name = "'. $first .'" AND last_name = "'. $last .'" AND email = "'. $email .'"';
+  $results = mysqli_query($dbc, $get_id_query) ;
+  check_results($results);
+  
+	$row = mysqli_fetch_array( $results , MYSQLI_ASSOC );
+  if($row['user_id'] != ''){ 
+	$id = $row['user_id'];
+  } else {
+	$id = '-1';
+  }
+  return $id;
 }
 ########################################################################################################################
 # Checks the query results as a debugging aid
@@ -129,12 +168,9 @@ $query = 'SELECT DISTINCT locations.id, stuff_id, name, description, stuff.creat
 		  FROM locations, stuff
 		  WHERE locations.id = stuff.location_id AND stuff_id = ' . $item_id . '';
 
+		  
 # Execute the query
-$results = mysqli_query( $dbc , $query ) ;
-
-# Show results
-if( $results )
-{
+$results = mysqli_query( $dbc , $query ) ;	
   # But...wait until we know the query succeeded before
   # starting the table.
   echo '<TABLE border="1">';
@@ -150,9 +186,28 @@ if( $results )
   echo '<TH>Status</TH>';  
   echo '</TR>';
 
+ if( $results )
+{
   # For each row result, generate a table row
   while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   {
+  
+  # Show results
+
+	if($row['owner'] != ''){
+		$owner = getUser($dbc, $row['owner'] );
+	} else {
+	$owner = '';
+	}
+	if($row['finder'] != ''){
+		$finder = getUser($dbc, $row['finder'] );
+	} else {
+	$finder = '';
+	}
+
+	
+	$alink = '<A HREF=/limbo/user.php?id=' . $row['owner'] . '>' . $owner . '</A>' ;
+	$blink = '<A HREF=/limbo/user.php?id=' . $row['finder'] . '>' . $finder . '</A>' ;
     echo '<TR>' ;
  #   echo '<TD>' . $row['id'] . '</TD>' ;
 	echo '<TD>' . $row['name'] . '</TD>' ;
@@ -160,14 +215,12 @@ if( $results )
     echo '<TD>' . $row['create_date'] . '</TD>' ;
 	echo '<TD>' . $row['update_date'] . '</TD>' ;
 	echo '<TD>' . $row['room'] . '</TD>' ;
-	echo '<TD>' . $row['owner'] . '</TD>' ;
-	echo '<TD>' . $row['finder'] . '</TD>' ;
+	echo '<TD>' . $alink . '</TD>' ;
+	echo '<TD>' . $blink. '</TD>' ;
 	echo '<TD>' . $row['status'] . '</TD>' ;
     echo '</TR>' ;
+  
   }
-  
-  
-  
   # End the table
   echo '</TABLE>';
 
@@ -269,8 +322,8 @@ if( $results)
   echo '<TH>Create Date</TH>';
   echo '<TH>Update Date</TH>';
   echo '<TH>Room</TH>';
-  echo '<TH>Owner</TH>';
-  echo '<TH>Finder</TH>';
+  echo '<TH>Owner ID</TH>';
+  echo '<TH>Finder ID</TH>';
   echo '<TH>Status</TH>'; 
   echo '<TH>Change Status</TH>';
   echo '</TR>' ;
@@ -278,7 +331,9 @@ if( $results)
   # For each row result, generate a table row
   while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   {
-
+  
+	$alink = '<A HREF=/limbo/user.php?id=' . $row['owner'] . '>' . $row['owner']. '</A>' ;
+	$blink = '<A HREF=/limbo/user.php?id=' . $row['finder'] . '>' . $row['finder'] . '</A>' ;
 	echo '<TR>' ;
 	echo '<TD>' . $row['stuff_id'] . '</TD>' ;
 	echo '<TD>' . $row['description'] . '</TD>' ;
@@ -287,8 +342,8 @@ if( $results)
     echo '<TD>' . $row['create_date'] . '</TD>' ;
 	echo '<TD>' . $row['update_date'] . '</TD>' ;
 	echo '<TD>' . $row['room'] . '</TD>' ;
-	echo '<TD>' . $row['owner'] . '</TD>' ;
-	echo '<TD>' . $row['finder'] . '</TD>' ;
+	echo '<TD>' . $alink . '</TD>' ;
+	echo '<TD>' . $blink . '</TD>' ;
 	echo '<TD>' . $row['status'] . '</TD>' ;
 	echo '<TD> 
 								<form action="" method="post">
@@ -485,6 +540,8 @@ if( $results)
   while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   {
 
+  	$alink = '<A HREF=/limbo/user.php?id=' . $row['owner'] . '>' . $row['owner']. '</A>' ;
+	$blink = '<A HREF=/limbo/user.php?id=' . $row['finder'] . '>' . $row['finder'] . '</A>' ;
 	echo '<TR>' ;
 	echo '<TD>' . $row['stuff_id'] . '</TD>' ;
 	echo '<TD>' . $row['description'] . '</TD>' ;
@@ -493,8 +550,8 @@ if( $results)
     echo '<TD>' . $row['create_date'] . '</TD>' ;
 	echo '<TD>' . $row['update_date'] . '</TD>' ;
 	echo '<TD>' . $row['room'] . '</TD>' ;
-	echo '<TD>' . $row['owner'] . '</TD>' ;
-	echo '<TD>' . $row['finder'] . '</TD>' ;
+	echo '<TD>' . $alink . '</TD>' ;
+	echo '<TD>' . $blink . '</TD>' ;
 	echo '<TD>' . $row['status'] . '</TD>' ;
 	echo '<TD> 	<form action="" method="post"> 
 					<input type="hidden" name="id" value=' . $row['stuff_id'] .' />
@@ -556,5 +613,97 @@ $delete_query = 'DELETE FROM stuff WHERE stuff_id = '. $id .'';
   check_results($results) ;
 
   return $results ;
+}
+###########################################################################################################################################
+function show_user($dbc){
+# Connect to MySQL server and the database
+require( '../limboincludes/connect_limbo_db.php' ) ;
+$user_id = $_GET["id"];
+# Create a query to get the name and price sorted by price
+$query = 'SELECT DISTINCT user_id, first_name, last_name, email, phone
+		  FROM locations, users
+		  WHERE user_id = ' . $user_id . '';
+
+# Execute the query
+$results = mysqli_query( $dbc , $query ) ;
+
+# Show results
+if( $results )
+{
+  # But...wait until we know the query succeeded before
+  # starting the table.
+  echo '<TABLE border="1">';
+  echo '<TR>';
+ # echo '<TH>Location ID</TH>';
+  echo '<TH>Name</TH>';
+  echo '<TH>Email</TH>';
+  echo '<TH>Phone Number</TH>';
+  echo '</TR>';
+
+  # For each row result, generate a table row
+  while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
+  {
+    echo '<TR>' ;
+ #   echo '<TD>' . $row['id'] . '</TD>' ;
+	echo '<TD>' . $row['first_name'] . ' ' . $row['last_name'] . '</TD>' ;
+	echo '<TD>' . $row['email'] . '</TD>' ;
+    echo '<TD>' . $row['phone'] . '</TD>' ;
+    echo '</TR>' ;
+  }
+  
+  
+  
+  # End the table
+  echo '</TABLE>';
+
+  # Free up the results in memory
+  mysqli_free_result( $results ) ;
+}
+else
+{
+  # If we get here, something has gone wrong
+  echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+}
+
+# Close the connection
+mysqli_close( $dbc ) ;
+}
+
+##################################################################################################################################
+function getUser($dbc, $user_id){
+ # Connect to MySQL server and the database
+require( '../limboincludes/connect_limbo_db.php' ) ;
+
+# Create a query to get the name and price sorted by price
+$query = 'SELECT DISTINCT user_id, first_name, last_name
+		  FROM locations, users
+		  WHERE user_id = ' . $user_id . '';
+
+# Execute the query
+$results = mysqli_query( $dbc , $query ) ;
+
+# Show results
+if( $results )
+{
+$row = mysqli_fetch_array( $results , MYSQLI_ASSOC);
+$name = $row['first_name'] . ' ' . $row['last_name'];
+}
+else
+{
+  # If we get here, something has gone wrong
+  echo '<p>' . mysqli_error( $dbc ) . '</p>'  ;
+}
+
+# Close the connection
+mysqli_close( $dbc ) ;
+
+return $name;
+}
+##################################################################################################################################
+function add_admin($dbc, $first, $last, $email, $password){
+	$query = 'INSERT INTO users(first_name, last_name, email, pass, reg_date, phone) 
+		VALUES ("' . $first . '" , "' . $last . '" , "'. $email .'", "'. $password .'", now(), "")' ;
+	$results = mysqli_query( $dbc , $query ) ;
+	return $results;
 }
 ?>
