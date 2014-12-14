@@ -37,7 +37,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	
 	$cnew = $_POST['cnew'] ;
 	;
-
+#Validate username and password, then update the password
 if (validate($name, $old) == -1){
 		echo '<p style="color:red">Invalid Login Credentials</p>';
 	} elseif($new != $cnew){
@@ -52,20 +52,19 @@ if (validate($name, $old) == -1){
 	}
 	
     }
-echo '<form action="" method="POST">';
-echo '<table>';
-echo '<tr><td>Email:</td><td><input type="text" name="name"></td></tr>';
-echo '<tr><td>Old Password:</td><td><input type="text" name="old"></td></tr>';
-echo '<tr><td>New Password:</td><td><input type="text" name="new"></td></tr>';
-echo '<tr><td>Confirm New Password:</td><td><input type="text" name="cnew"></td></tr>';
-echo '</table>';
-echo '<p><input type="submit" ></p>';
-echo '</form>';
-echo '<button onclick="goBack()">Go Back</button>';
 
 # Close the connection
 mysqli_close( $dbc ) ;
 ?>
-
+<form action="" method="POST">
+<table>
+<tr><td>Email:</td><td><input type="text" name="name" value="<?php if(isset($_POST['name'])) echo $_POST['name']; ?>"></td></tr>
+<tr><td>Old Password:</td><td><input type="password" name="old"></td></tr>
+<tr><td>New Password:</td><td><input type="password" name="new"></td></tr>
+<tr><td>Confirm New Password:</td><td><input type="password" name="cnew"></td></tr>
+</table>
+<p><input type="submit" ></p>
+</form>
+<button onclick="goBack()">Go Back</button>
  </body>
 </html>

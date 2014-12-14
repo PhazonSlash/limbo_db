@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="limboCSS.css"> 
+ <script>
+	function goBack() {
+		window.history.back()
+	}
+</script>
  <title>Delete Entries</title>
  <body>
   <div>
@@ -27,7 +32,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	
 	delete_item($dbc, $id);
 	}
-	
+	#Display the table with delete options
 	admin_delete_item($dbc);
 
 # Close the connection

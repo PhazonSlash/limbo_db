@@ -52,7 +52,7 @@ function validate($prname = '', $prpass = '')
     if (mysqli_num_rows( $results ) == 0 )
       return -1 ;
 
-    # We have at least one row, so get the frist one and return it
+    # We have at least one row, so get the first one and return it
     $row = mysqli_fetch_array($results, MYSQLI_ASSOC) ;
 
     $pid = $row [ 'user_id' ] ;

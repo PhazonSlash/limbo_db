@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
  <link rel="stylesheet" type="text/css" href="limboCSS.css"> 
+  <script>
+	function goBack() {
+		window.history.back()
+	}
+</script>
  <title>Edit Status</title>
 
  <body>

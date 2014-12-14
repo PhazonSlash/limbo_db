@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="limboCSS.css"> 
+ <script>
+	function goBack() {
+		window.history.back()
+	}
+</script>
  <title>Add Admins</title>
  <body>
   <div>
@@ -48,19 +53,19 @@ mysqli_close( $dbc ) ;
 <form action="" method="POST">
 <table>
 <tr>
-<td>Your First Name:</td><td><input type="text" name="first"></td>
+<td>Your First Name:</td><td><input type="text" name="first" value="<?php if(isset($_POST['first'])) echo $_POST['first']; ?>"></td>
 </tr>
 <tr>
-<td>Your Last Name:</td><td><input type="text" name="last"></td>
+<td>Your Last Name:</td><td><input type="text" name="last" value="<?php if(isset($_POST['last'])) echo $_POST['last']; ?>"></td>
 </tr>
 <tr>
-<td>Your Email:</td><td><input type="text" name="email"></td>
+<td>Your Email:</td><td><input type="text" name="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"></td>
 </tr>
 <tr>
-<td>Password:</td><td><input type="text" name="password"></td>
+<td>Password:</td><td><input type="password" name="password"></td>
 </tr>
 <tr>
-<td>Confirm Password:</td><td><input type="text" name="cpassword"></td>
+<td>Confirm Password:</td><td><input type="password" name="cpassword"></td>
 </tr>
 </table>
 <p><input type="submit" ></p>

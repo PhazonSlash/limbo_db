@@ -42,7 +42,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	
 	$status = 'found';
 
-    if(!empty($description) && !empty($first) && !empty($last)) {
+    if(!empty($description) && !empty($first) && !empty($last) && !empty($email)) {
 		
 		$result = insert_record($dbc, $location_id, $description, $room, $first, $last, $email, $phone, $status ) ;
 		header("Location: /limbo/thanks.php");
@@ -56,30 +56,31 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 # Close the connection
 mysqli_close( $dbc ) ;
 ?>
+<p>Fields marked with * are required.</p>
 <form action="newfound.php" method="POST">
 <table>
 <tr>
-<td>Your First Name:</td><td><input type="text" name="first"></td>
+<td>*Your First Name:</td><td><input type="text" name="first" value="<?php if(isset($_POST['first'])) echo $_POST['first']; ?>"></td>
 </tr>
 <tr>
-<td>Your Last Name:</td><td><input type="text" name="last"></td>
+<td>*Your Last Name:</td><td><input type="text" name="last" value="<?php if(isset($_POST['last'])) echo $_POST['last']; ?>"></td>
 </tr>
 <tr>
-<td>Your Email:</td><td><input type="text" name="email"></td>
+<td>*Your Email:</td><td><input type="text" name="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"></td>
 </tr>
 <tr>
-<td>Your Phone:</td><td><input type="text" name="phone"></td>
+<td>Your Phone:</td><td><input type="text" name="phone" value="<?php if(isset($_POST['phone'])) echo $_POST['phone']; ?>"></td>
 </tr>
 <tr>
-<td>Item Description:</td><td><input type="text" name="description"></td>
+<td>*Item Description:</td><td><input type="text" name="description" value="<?php if(isset($_POST['description'])) echo $_POST['description']; ?>"></td>
 </tr>
 <tr>
-<td>Where You Found It:</td><td><select name="location_id">
+<td>*Where You Found It:</td><td><select name="location_id">
 <?php location_dropdown(); ?>
 </td>
 </tr>
 <tr>
-<td>Room:</td><td><input type="text" name="room"></td>
+<td>Room:</td><td><input type="text" name="room" value="<?php if(isset($_POST['room'])) echo $_POST['room']; ?>"></td>
 </tr>
 </table>
 <p><input type="submit" ></p>

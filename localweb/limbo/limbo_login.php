@@ -37,10 +37,10 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 <form action="limbo_login.php" method="POST">
 <table>
 <tr>
-<td>Email:</td><td><input type="text" name="name"></td>
+<td>Email:</td><td><input type="text" name="name" value="<?php if(isset($_POST['name'])) echo $_POST['name']; ?>"></td>
 </tr>
 <tr>
-<td>Password:</td><td><input type="text" name="password"></td>
+<td>Password:</td><td><input type="password" name="password"></td>
 </tr>
 </table>
 <p><input type="submit" ></p>

@@ -20,13 +20,14 @@ require( '/limboincludes/connect_limbo_db.php' ) ;
 require( '/limboincludes/limbo_helpers.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
-	
+	#If the user specified a time range
 	$days = $_POST['days'] ;
 	
     } else {
-		$days = '7';
+		$days = '7'; #Use one week by default
 	}
 
+#Create the Found In Last drop-down menu
  echo '<form action="" method="post">';
  echo	'<select name="days">';
  echo '<option value=7 '. check_current_status('7', $days) .'>Week</option>';
